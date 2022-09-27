@@ -340,7 +340,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 63121798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238244341}
+        m_TargetAssemblyTypeName: modelHairColorChange, Assembly-CSharp
+        m_MethodName: hairColorMixing
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &63121798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 238244339}
   - component: {fileID: 238244340}
+  - component: {fileID: 238244341}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -647,6 +660,24 @@ MonoBehaviour:
   - {fileID: 4300006, guid: d8e6717bd7507b44c9fc5a0a6749ec6c, type: 3}
   - {fileID: 4300012, guid: d8e6717bd7507b44c9fc5a0a6749ec6c, type: 3}
   - {fileID: 4300014, guid: d8e6717bd7507b44c9fc5a0a6749ec6c, type: 3}
+--- !u!114 &238244341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238244338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53eeca17a831f0744afa116193546539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hair: {fileID: 1178167753}
+  hairMaterial: {fileID: 0}
+  beforeColor: {r: 0, g: 0, b: 0, a: 0}
+  afterColor: {r: 0, g: 0, b: 0, a: 0}
+  changeTime: 10
+  nowTime: 0
 --- !u!1 &400869575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1313,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4300004, guid: d8e6717bd7507b44c9fc5a0a6749ec6c, type: 3}
     - target: {fileID: 1694388105159416151, guid: 678bf8bc91771fa498236de892b83d1d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1694388105159416151, guid: 678bf8bc91771fa498236de892b83d1d, type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3a1e33245c62cf54dad1f33cb1420dc1, type: 2}
+    - target: {fileID: 1694388105159416151, guid: 678bf8bc91771fa498236de892b83d1d, type: 3}
+      propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 3a1e33245c62cf54dad1f33cb1420dc1, type: 2}
     m_RemovedComponents: []
@@ -2373,7 +2412,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1738484568}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238244341}
+        m_TargetAssemblyTypeName: modelHairColorChange, Assembly-CSharp
+        m_MethodName: hairColorChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1738484568
 MonoBehaviour:
   m_ObjectHideFlags: 0
