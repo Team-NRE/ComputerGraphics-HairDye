@@ -19,7 +19,7 @@ public class ColorPicker_Circle : MonoBehaviour
         sizeOfPalette = new Vector2(
             paletteCollider.GetComponent<RectTransform>().rect.width,
             paletteCollider.GetComponent<RectTransform>().rect.height
-            );
+        );
     }
 
     public void MousePointerDown()
@@ -38,6 +38,7 @@ public class ColorPicker_Circle : MonoBehaviour
         Vector2 pickerPosition = picker.transform.position;
 
         Vector2 position = pickerPosition - circlePalettePosition + sizeOfPalette * 0.5f;
+        
         Vector2 normalized = new Vector2(
             (position.x / (circlePalette.GetComponent<RectTransform>().rect.width)),
             (position.y / (circlePalette.GetComponent<RectTransform>().rect.height)));
