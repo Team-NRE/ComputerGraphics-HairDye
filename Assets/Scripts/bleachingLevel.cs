@@ -28,6 +28,14 @@ public class bleachingLevel : MonoBehaviour
     };
     #endregion
 
+    void Start()
+    {
+        level= (int)((pickerRect.anchoredPosition.y + paletteRect.rect.height / 2 - 0.001f) / (paletteRect.rect.height / 12));
+        
+        levelText.text = (level + 1).ToString();
+        levelNameText.text = "- " + levelName[level] + " -";
+    }
+
     void FixedUpdate()
     {
         level= (int)((pickerRect.anchoredPosition.y + paletteRect.rect.height / 2 - 0.001f) / (paletteRect.rect.height / 12));

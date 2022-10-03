@@ -40,7 +40,7 @@ public class modelHairColorChange : MonoBehaviour
         #endregion
     }
 
-    public void hairColorChange(Color newColor, bool isInstant = true)
+    public void hairColorChange(bool isInstant = true)
     {
         /*
             헤어 컬러 변환 함수
@@ -52,13 +52,13 @@ public class modelHairColorChange : MonoBehaviour
         */
 
         if (isInstant)
-        {
-            hairMaterial.color = newColor;
-        }
+            hairMaterial.color = afterColor;
         else 
-        {
-            afterColor = newColor;
             nowTime = 0;
-        }
+    }
+
+    public void setAfterColor()
+    {
+        
     }
 }

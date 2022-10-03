@@ -9,9 +9,10 @@ public class ColorPicker_Squre : MonoBehaviour
     public Image palette;
     public Image picker;
 
+    public RectTransform uiRect;
     private RectTransform paletteRect, pickerRect;
 
-    public Color selectedColor;
+    public modelHairColorChange hairChange;
     public Texture2D paletteTexture;
 
     private Vector2 sizeOfPalette;
@@ -28,6 +29,8 @@ public class ColorPicker_Squre : MonoBehaviour
         );
 
         paletteTexture = palette.mainTexture as Texture2D;
+        
+        hairChange.afterColor = GetColor();
     }
 
     public void MousePointerDown()
@@ -40,6 +43,11 @@ public class ColorPicker_Squre : MonoBehaviour
         SelectColor();
     }
 
+    public void getColor()
+    {
+        GetColor();
+    }
+
     private Color GetColor()
     {
         Vector2 colorPosition = pickerRect.anchoredPosition + sizeOfPalette * 0.5f;
@@ -49,7 +57,10 @@ public class ColorPicker_Squre : MonoBehaviour
             (colorPosition.y / sizeOfPalette.y)
         );
 
-        return paletteTexture.GetPixelBilinear(normalized.x, normalized.y);
+        Color resultColor = paletteTexture.GetPixelBilinear(normalized.x, normalized.y);
+        picker.color = resultColor;
+
+        return resultColor;
     }
 
     private void SelectColor()
@@ -58,12 +69,11 @@ public class ColorPicker_Squre : MonoBehaviour
         
         // picker Rect Transform 의 Position 설정
         pickerRect.anchoredPosition = new Vector3(
-            Mathf.Clamp(offset.x * 2, -sizeOfPalette.x / 2, sizeOfPalette.x / 2),
-            Mathf.Clamp(offset.y * 2, -sizeOfPalette.y / 2, sizeOfPalette.y / 2),
+            Mathf.Clamp(offset.x / uiRect.localScale.x, -sizeOfPalette.x / 2, sizeOfPalette.x / 2),
+            Mathf.Clamp(offset.y / uiRect.localScale.y, -sizeOfPalette.y / 2, sizeOfPalette.y / 2),
             0
         );
 
-        selectedColor = GetColor();
-        picker.color = selectedColor;
+        hairChange.afterColor = GetColor();
     }
 }
