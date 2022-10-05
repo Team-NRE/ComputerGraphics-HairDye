@@ -9,11 +9,11 @@ public class resetSetting : MonoBehaviour
     
     - 헤어 모델 초기화
     - 헤어 색상 초기화
-    - 탈색 모드로 초기화
+    - Undo 버튼 Color 리스트 초기화
     - 염색 모드 Picker 위치 초기화
+    - 탈색 모드로 초기화
     - 탈색 모드 레벨 초기화
     - 탈색 모드 Picker 위치 초기화
-    - Return 버튼 Color 리스트 초기화
     - 카메라 위치 초기화
     */
 
@@ -28,13 +28,13 @@ public class resetSetting : MonoBehaviour
 
     void Start()
     {
-        // - 헤어 모델 초기화용
+        // - 헤어 모델 초기화용 modelHairChange 스크립트
         hairModel       = Model.GetComponent<modelHairChange>();
         
-        // - 헤어 색상 초기화용
+        // - 헤어 색상 초기화용 modelHairColorChange 스크립트
         hairColor       = Model.GetComponent<modelHairColorChange>();
         
-        // - 탈색 모드로 초기화용
+        // - 탈색 모드로 초기화용   paletteMode 스크립트
         paletteUI       = UI.GetComponent<paletteMode>();
     }
 
@@ -46,6 +46,9 @@ public class resetSetting : MonoBehaviour
         // - 헤어 색상 초기화
         hairColor.afterColor = Color.black; // 바뀔 컬러 검은색으로 설정
         hairColor.hairColorChange(true);    // 헤어 컬러 즉시 변환
+        
+        // - Undo 버튼 Color 리스트 초기화
+        hairColor.recordClear();            // Color 리스트 초기화
 
         // - 염색 모드 Picker 위치 초기화
         // [수정 요망]
@@ -62,10 +65,6 @@ public class resetSetting : MonoBehaviour
         // - 탈색 모드 Picker 위치 초기화
         GameObject picker = GameObject.Find("Picker");  // 현재 Active 되어 있는 탈색 모드 Picker 선택
         picker.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;   // Rect Transform의 Pos를 모두 0으로 초기화
-
-        // - Return 버튼 Color 리스트 초기화
-        // [수정 요망]
-
 
         // - 카메라 위치 초기화
         Camera.transform.rotation = Quaternion.Euler(0, 0, 0);

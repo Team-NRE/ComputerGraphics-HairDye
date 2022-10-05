@@ -930,6 +930,7 @@ MonoBehaviour:
   beforeColor: {r: 0, g: 0, b: 0, a: 0}
   afterColor: {r: 0, g: 0, b: 0, a: 0}
   changeTime: 3
+  changeRecord: []
 --- !u!1 &255050379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,7 +1786,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 545101400}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238244341}
+        m_TargetAssemblyTypeName: modelHairColorChange, Assembly-CSharp
+        m_MethodName: recordPopBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &545101400
 MonoBehaviour:
   m_ObjectHideFlags: 0
