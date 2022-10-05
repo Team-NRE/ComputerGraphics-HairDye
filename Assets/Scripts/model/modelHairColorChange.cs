@@ -16,6 +16,9 @@ public class modelHairColorChange : MonoBehaviour
     [Header ("- 점층적 변화 시간")]
     public float changeTime;    // 걸리는 시간 (단위 초)
     private float nowTime;      // 현재 바뀐 시간 저장용
+
+    [Header ("- 컬러 변환 기록")]
+    
     #endregion
 
     void Start()
