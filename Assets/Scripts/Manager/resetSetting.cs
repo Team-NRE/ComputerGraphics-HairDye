@@ -51,7 +51,6 @@ public class resetSetting : MonoBehaviour
         hairColor.recordClear();            // Color 리스트 초기화
 
         // - 염색 모드 Picker 위치 초기화
-        // [수정 요망]
         paletteUI.setBleachingMode(false);  // Palette를 염색 모드로 설정
 
         // - 탈색 모드로 초기화

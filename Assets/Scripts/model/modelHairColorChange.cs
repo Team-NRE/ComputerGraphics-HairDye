@@ -9,6 +9,9 @@ public class modelHairColorChange : MonoBehaviour
     public GameObject hair;         // 헤어 오브젝트
     private Material hairMaterial;  // 헤어 메터리얼
 
+    [Header ("- Palette UI")]
+    public paletteMode paletteUI;  // Palette UI Mode 처리
+
     [Header ("- 컬러 값")]
     public Color beforeColor;   // 바뀌기 전 컬러
     public Color afterColor;    // 바뀐 후 컬러
@@ -19,7 +22,6 @@ public class modelHairColorChange : MonoBehaviour
 
     [Header ("- 컬러 변환 기록")]
     [SerializeField] private List<Color> changeRecord;
-    
     #endregion
 
     void Start()
@@ -28,6 +30,7 @@ public class modelHairColorChange : MonoBehaviour
         hairMaterial = hair.GetComponent<SkinnedMeshRenderer>()?.materials[0];  // 헤어 메테리얼 초기화
         beforeColor = afterColor = hairMaterial.color; // 헤어 컬러 초기화
         nowTime = changeTime;           // 걸리는 시간 초기화
+        recordClear();
     }
 
     void FixedUpdate()
@@ -71,6 +74,9 @@ public class modelHairColorChange : MonoBehaviour
         */
 
         changeRecord.Add(c);
+
+        if (changeRecord.Count >= 2)
+            paletteUI.setBleachingMode(false);
     }
 
     public void recordPopBack()
@@ -79,6 +85,8 @@ public class modelHairColorChange : MonoBehaviour
             색깔 변화 기록 리스트의 맨 뒤 색깔을 빼서 헤어 색 변환해주는 함수
         */
 
+        if (changeRecord.Count == 0) return;  // 리스트에 개수 0개라면 리턴
+
         int backIdx = changeRecord.Count - 1; // 맨 뒤 인덱스 저장
 
         afterColor = changeRecord[backIdx];  // 맨 뒤 인덱스의 컬러로 afterColor 지정
@@ -86,6 +94,9 @@ public class modelHairColorChange : MonoBehaviour
         if (backIdx > 0)
             changeRecord.RemoveAt(backIdx); // 맨 뒤 인덱스 pop
         nowTime = 0.0f;                     // 헤어 변환
+
+        if (changeRecord.Count < 2)
+            paletteUI.setBleachingMode(true);
     }
 
     public void recordClear()
@@ -95,5 +106,33 @@ public class modelHairColorChange : MonoBehaviour
         */
 
         changeRecord.Clear();
+        changeRecord.Add(Color.black);
+    }
+
+    public void chooseColorToAfterColor()
+    {
+        /*
+            Picker로 선택된 컬러를 afterColor로 대입하는 함수
+        */
+
+        Color pickerColor; // 선택된 컬러
+
+        // 팔레트 모드에 따른 색깔 불러오기 처리
+        if (changeRecord.Count <= 1) 
+        {   // 탈색 모드
+            pickerColor = GameObject.Find("Bleaching").GetComponent<colorPicker>().selectedColor;
+
+        }
+        else 
+        {   // 염색 모드
+            pickerColor = GameObject.Find("Dyeing").GetComponent<colorPicker>().selectedColor;
+
+            pickerColor.r = Mathf.Min(afterColor.r * pickerColor.r);
+            pickerColor.g = Mathf.Min(afterColor.g * pickerColor.g);
+            pickerColor.b = Mathf.Min(afterColor.b * pickerColor.b);
+        }
+
+        // 컬러 대입
+        afterColor = pickerColor;
     }
 }
