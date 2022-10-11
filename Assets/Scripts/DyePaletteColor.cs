@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DyePaletteColor : MonoBehaviour
 {
-    //private Color[] colorArr;
-    private Color[] colorPalette;
+    [Header(" - 팔레트 상위 객체")]
     [SerializeField]
-    private GameObject motherObject;
-    private Image[] paletteRenderer;
+    private GameObject motherObject;    //팔레트 상위객체 : 묶어준 빈 오브젝트
+
+    private Image[] paletteRenderer;    //팔레트 하위객체 : 색 블럭
+
+    private Color listSelected;
+    public static Image clickedColor;
 
     void Start()
     {
         ColorMapping();
     }
-    // n/255f를 안붙이면 적용이 안돼는 아주 거지같은 특성이 있음에 주의
+    // n/255f를 안붙이면 적용이 안돼는 아주 화가나는 특성이 있음에 주의
     private void ColorMapping()
     {
         Color[] colorArr = new Color[]
@@ -57,14 +61,19 @@ public class DyePaletteColor : MonoBehaviour
     };
         //자식객체의 컬러 컴포넌트
         paletteRenderer = motherObject.GetComponentsInChildren<Image>();
-        Debug.Log(paletteRenderer.Length);
+        //Debug.Log(paletteRenderer.Length);
 
         //자식객체에 모두 접근하여 Color값 할당
         for(int i = 0; i < colorArr.Length; i++)
         {
-            Debug.Log($"{paletteRenderer[i].name}, ({colorArr[i].r}, {colorArr[i].g}, {colorArr[i].b})");
+            //Debug.Log($"{paletteRenderer[i].name}, ({colorArr[i].r}, {colorArr[i].g}, {colorArr[i].b})");
             paletteRenderer[i].color = colorArr[i];
             //Debug.Log($"{ paletteRenderer[i]}");
         }
+    }
+    public void OnClickPalette()
+    {
+        clickedColor = null;
+        clickedColor = EventSystem.current.currentSelectedGameObject.GetComponent<Image>();
     }
 }

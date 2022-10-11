@@ -13,8 +13,8 @@ public class modelHairColorChange : MonoBehaviour
     public paletteMode paletteUI;  // Palette UI Mode 처리
 
     [Header ("- 컬러 값")]
-    public Color beforeColor;   // 바뀌기 전 컬러
-    public Color afterColor;    // 바뀐 후 컬러
+    public Color beforeColor;          // 바뀌기 전 컬러
+    public Color afterColor;           // 바뀐 후 컬러
     
     [Header ("- 점층적 변화 시간")]
     public float changeTime;    // 걸리는 시간 (단위 초)
@@ -22,6 +22,8 @@ public class modelHairColorChange : MonoBehaviour
 
     [Header ("- 컬러 변환 기록")]
     [SerializeField] private List<Color> changeRecord;
+
+    public static Color pickerColor; // 선택된 컬러
     #endregion
 
     void Start()
@@ -115,7 +117,7 @@ public class modelHairColorChange : MonoBehaviour
             Picker로 선택된 컬러를 afterColor로 대입하는 함수
         */
 
-        Color pickerColor; // 선택된 컬러
+        //Color pickerColor; // 선택된 컬러
 
         // 팔레트 모드에 따른 색깔 불러오기 처리
         if (changeRecord.Count <= 1) 
@@ -125,14 +127,24 @@ public class modelHairColorChange : MonoBehaviour
         }
         else 
         {   // 염색 모드
-            pickerColor = GameObject.Find("Dyeing").GetComponent<colorPicker>().selectedColor;
 
-            pickerColor.r = Mathf.Min(afterColor.r * pickerColor.r);
-            pickerColor.g = Mathf.Min(afterColor.g * pickerColor.g);
-            pickerColor.b = Mathf.Min(afterColor.b * pickerColor.b);
+            if (DyePaletteColor.clickedColor != null) //버튼 팔레트 선택 여부 우선 점검
+            {
+                pickerColor = DyePaletteColor.clickedColor.color;
+            }
+
+            else //버튼 팔레트 색이 null이 아니라면 칼라픽커의 색을 가져온다.
+            {
+                pickerColor = GameObject.Find("Dyeing").GetComponent<colorPicker>().selectedColor;
+
+                pickerColor.r = Mathf.Min(afterColor.r * pickerColor.r);
+                pickerColor.g = Mathf.Min(afterColor.g * pickerColor.g);
+                pickerColor.b = Mathf.Min(afterColor.b * pickerColor.b);
+            }
         }
 
         // 컬러 대입
         afterColor = pickerColor;
+        DyePaletteColor.clickedColor = null;
     }
 }
