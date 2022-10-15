@@ -92,6 +92,7 @@ public class DyePaletteColor : MonoBehaviour
                 checkedRenderer[0].gameObject.SetActive(false);   //다시한번 비활성화
             }
         }
+        count = 0;
     }
     
 
