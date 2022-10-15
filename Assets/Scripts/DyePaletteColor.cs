@@ -14,18 +14,12 @@ public class DyePaletteColor : MonoBehaviour
     private Image[] paletteRenderer;    //팔레트 하위객체 : 색 블럭
 
     private Color listSelected;
-    public static Image clickedColor;
-    public Image checkedColor;          //체크마크 활성화 여부 체크
+    public static Image clickedColor;   //버튼팔레트에서 선택한 팔레트 색 전달을 위한 변수
+    private GameObject reRender;
+    int count = 0;
 
-    void Start()
-    {
-        ColorMapping();
-    }
-    // n/255f를 안붙이면 적용이 안돼는 아주 화가나는 특성이 있음에 주의
-    private void ColorMapping()
-    {
-        Color[] colorArr = new Color[]
-        {
+    Color[] colorArr = new Color[]
+{
             new Color(100/255f, 15/255f,  44/255f),
             new Color(185/255f, 72/255f,  38/255f),
             new Color(150/255f, 56/255f,  30/255f),
@@ -60,23 +54,59 @@ public class DyePaletteColor : MonoBehaviour
             new Color(185/255f, 82/255f,  101/255f),
             new Color(228/255f, 136/255f, 123/255f),
             new Color(147/255f, 65/255f,  79/255f)
-    };
+};
+
+    void Start()
+    {
+        ColorMapping();
+    }
+
+    // n/255f를 안붙이면 적용이 안돼는 아주 화가나는 특성이 있음에 주의
+    public void ColorMapping()
+    {
         //자식객체의 컬러 컴포넌트
         paletteRenderer = motherObject.GetComponentsInChildren<Image>();
-        //Debug.Log(paletteRenderer.Length);
+        RawImage[] checkRenderer = motherObject.GetComponentsInChildren<RawImage>();
+        Debug.Log(paletteRenderer.Length);
 
         //자식객체에 모두 접근하여 Color값 할당
         for(int i = 0; i < colorArr.Length; i++)
         {
             //Debug.Log($"{paletteRenderer[i].name}, ({colorArr[i].r}, {colorArr[i].g}, {colorArr[i].b})");
             paletteRenderer[i].color = colorArr[i];
-            paletteRenderer[i].GetComponent<Image>().gameObject.SetActive(false);   //초기화와 동시에 체크마크를 모두 가린다.
+            checkRenderer[i].gameObject.SetActive(false);   //초기에 체크는 모두 
             //Debug.Log($"{ paletteRenderer[i]}");
         }
+
     }
+
+    public void CheckMarkRefresh()
+    {
+        RawImage[] checkedRenderer = motherObject.GetComponentsInChildren<RawImage>();
+        Debug.Log(colorArr.Length);
+        Debug.Log(checkedRenderer.Length);
+        for (int i = 0; i < colorArr.Length; i++)
+        {
+            if (checkedRenderer[0].gameObject.activeSelf == true) 
+            {
+                checkedRenderer[0].gameObject.SetActive(false);   //다시한번 비활성화
+            }
+        }
+    }
+    
+
     public void OnClickPalette()
     {
+        if (count >= 1)
+        {
+            CheckMarkRefresh();
+        }
+
         clickedColor = null;
         clickedColor = EventSystem.current.currentSelectedGameObject.GetComponent<Image>();
+        reRender = clickedColor.gameObject.transform.GetChild(0).gameObject;
+        //Debug.Log(clickedColor.gameObject.transform.GetChild(0).gameObject.name);
+        reRender.gameObject.SetActive(true);
+        count++;
     }
 }
