@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class DyePaletteColor : MonoBehaviour
 
     private Color listSelected;
     public static Image clickedColor;
+    public Image checkedColor;          //체크마크 활성화 여부 체크
 
     void Start()
     {
@@ -68,6 +70,7 @@ public class DyePaletteColor : MonoBehaviour
         {
             //Debug.Log($"{paletteRenderer[i].name}, ({colorArr[i].r}, {colorArr[i].g}, {colorArr[i].b})");
             paletteRenderer[i].color = colorArr[i];
+            paletteRenderer[i].GetComponent<Image>().gameObject.SetActive(false);   //초기화와 동시에 체크마크를 모두 가린다.
             //Debug.Log($"{ paletteRenderer[i]}");
         }
     }

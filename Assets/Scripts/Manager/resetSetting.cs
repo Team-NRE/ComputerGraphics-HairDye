@@ -26,6 +26,8 @@ public class resetSetting : MonoBehaviour
     private modelHairColorChange hairColor;
     private paletteMode paletteUI;
 
+    public GameObject applyButton;
+
     void Start()
     {
         // - 헤어 모델 초기화용 modelHairChange 스크립트
@@ -67,5 +69,8 @@ public class resetSetting : MonoBehaviour
 
         // - 카메라 위치 초기화
         Camera.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        //버튼 초기화
+        applyButton.gameObject.SetActive(true);
     }
 }

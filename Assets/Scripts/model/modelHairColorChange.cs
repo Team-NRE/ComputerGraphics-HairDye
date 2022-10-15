@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class modelHairColorChange : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class modelHairColorChange : MonoBehaviour
     [SerializeField] private List<Color> changeRecord;
 
     public static Color pickerColor; // 선택된 컬러
+
+    [Header("- 버튼 바인딩")]
+    public GameObject applyButton;
     #endregion
 
     void Start()
@@ -99,6 +103,8 @@ public class modelHairColorChange : MonoBehaviour
 
         if (changeRecord.Count < 2)
             paletteUI.setBleachingMode(true);
+
+        applyButton.gameObject.SetActive(true);
     }
 
     public void recordClear()
@@ -118,7 +124,6 @@ public class modelHairColorChange : MonoBehaviour
         */
 
         //Color pickerColor; // 선택된 컬러
-
         // 팔레트 모드에 따른 색깔 불러오기 처리
         if (changeRecord.Count <= 1) 
         {   // 탈색 모드
@@ -131,15 +136,17 @@ public class modelHairColorChange : MonoBehaviour
             if (DyePaletteColor.clickedColor != null) //버튼 팔레트 선택 여부 우선 점검
             {
                 pickerColor = DyePaletteColor.clickedColor.color;
+                applyButton.gameObject.SetActive(false);
             }
 
-            else //버튼 팔레트 색이 null이 아니라면 칼라픽커의 색을 가져온다.
+            else //버튼 팔레트 색이 null이 맞다면 칼라픽커의 색을 가져온다.
             {
                 pickerColor = GameObject.Find("Dyeing").GetComponent<colorPicker>().selectedColor;
 
                 pickerColor.r = Mathf.Min(afterColor.r * pickerColor.r);
                 pickerColor.g = Mathf.Min(afterColor.g * pickerColor.g);
                 pickerColor.b = Mathf.Min(afterColor.b * pickerColor.b);
+                applyButton.gameObject.SetActive(false);
             }
         }
 
