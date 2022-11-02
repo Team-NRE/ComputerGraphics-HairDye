@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class bleachingLevel : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class bleachingLevel : MonoBehaviour
     public RectTransform pickerRect;
 
     [Header ("- UI Texts")]
-    public TextMeshProUGUI levelText;
-    public TextMeshProUGUI levelNameText;
+    public Text levelText;
+    public Text levelNameText;
 
     [Header ("- Level Data")]
     [SerializeField] private int level = 0;
